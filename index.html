@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FunyBorne BOX — Votre marque dans toutes les mains</title>
+<meta name="description" content="Le photobooth FunyBorne clé en main. Calculez votre rentabilité.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFD400;--bg:#07070A;--glass:rgba(255,255,255,.07);--gb:rgba(255,255,255,.14);--t2:rgba(255,255,255,.66)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-text-size-adjust:100%}
+button,.chip,input{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;color:#fff;background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.glass{background:var(--glass);border:1px solid var(--gb);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border-radius:22px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.12)}
+.ico{width:24px;height:24px;fill:none;stroke:var(--y);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(255,212,0,.85))}
+nav{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:18px;padding:9px 10px 9px 20px;border-radius:99px;width:min(94vw,760px);justify-content:space-between}
+.logo{font-weight:800;letter-spacing:-.03em;font-size:17px}.logo b{color:var(--y)}
+nav .lk{display:flex;gap:20px;font-size:13px;color:var(--t2)}nav .lk a:hover{color:#fff}
+.pill{background:var(--y);color:#000;font-weight:700;font-size:13px;padding:9px 16px;border-radius:99px;white-space:nowrap}
+@media(max-width:700px){nav .lk{display:none}}
+
+#story{height:920vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(7,7,10,.86),rgba(7,7,10,.45) 36%,transparent 58%),linear-gradient(0deg,rgba(7,7,10,.5),transparent 22%)}
+.flashfx{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:40}
+.flashfx.go{animation:fx .6s ease-out}@keyframes fx{0%{opacity:.3}100%{opacity:0}}
+.chap{position:absolute;left:6vw;top:50%;width:min(36vw,470px);transform:translateY(-40%);opacity:0;transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none;z-index:20}
+.chap.on{opacity:1;transform:translateY(-50%);pointer-events:auto}
+.kick{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--y);margin-bottom:14px}
+.chap h1,.chap h2{font-size:clamp(34px,5vw,68px);font-weight:900;letter-spacing:-.045em;line-height:1;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.chap h2{font-size:clamp(30px,4.2vw,58px)}
+.chap p{font-size:clamp(15px,1.4vw,19px);color:rgba(255,255,255,.8);margin-top:16px;line-height:1.45}
+.grad{background:linear-gradient(90deg,#fff,#FFE680 60%,#FFD400);-webkit-background-clip:text;background-clip:text;color:transparent}
+.scrollhint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--t2);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:20;transition:opacity .4s}
+.scrollhint span{width:22px;height:36px;border:2px solid rgba(255,255,255,.4);border-radius:12px;position:relative}
+.scrollhint span::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:8px;margin-left:-2px;background:#fff;border-radius:2px;animation:wh 1.6s infinite}
+@keyframes wh{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
+.cards{position:absolute;right:5vw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;width:min(26vw,320px);z-index:20}
+.card{padding:16px 18px;display:flex;gap:14px;align-items:center;opacity:0;transform:translateX(40px) scale(.96);transition:all .55s cubic-bezier(.2,.8,.2,1)}
+.card.on{opacity:1;transform:none}
+.card .ic{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,212,0,.1);border:1px solid rgba(255,212,0,.35);flex-shrink:0}
+.card b{display:block;font-size:16px;letter-spacing:-.01em}.card small{font-size:13px;color:var(--t2)}
+.perso-ctl{margin-top:22px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.chips{display:flex;gap:10px}
+.chip{width:34px;height:34px;border-radius:50%;cursor:pointer;border:2px solid rgba(255,255,255,.3);transition:transform .2s}
+.chip:hover,.chip.on{transform:scale(1.15);border-color:#fff}
+.perso-ctl input{background:rgba(255,255,255,.08);border:1px solid var(--gb);border-radius:99px;padding:11px 16px;color:#fff;font:inherit;font-size:16px;outline:none}
+.perso-ctl input::placeholder{color:rgba(255,255,255,.45)}
+.dots{position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:30}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s}
+.dots i.on{background:var(--y);height:20px;border-radius:4px}
+.l3{position:absolute;left:0;top:0;z-index:15;opacity:0;pointer-events:none;will-change:transform}
+.l3 i{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:var(--y);box-shadow:0 0 12px var(--y)}
+.l3 div{position:absolute;left:16px;top:-18px;white-space:nowrap;padding:7px 12px;border-radius:12px;background:rgba(20,20,26,.55);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.l3.lf div{left:auto;right:16px}
+.l3 b{display:block;font-size:13px}.l3 small{font-size:11px;color:var(--t2)}
+@media(max-width:820px){
+  .scrim{background:linear-gradient(180deg,rgba(7,7,10,.9),rgba(7,7,10,.5) 26%,transparent 42%),linear-gradient(0deg,rgba(7,7,10,.6),transparent 20%)}
+  .chap{left:6vw;right:6vw;width:auto;top:84px;transform:translateY(10px);text-align:center}.chap.on{transform:none}
+  .chap h1{font-size:clamp(30px,8.6vw,42px)}.chap h2{font-size:clamp(27px,7.6vw,36px)}
+  .chap p{font-size:14px;margin-top:8px;text-shadow:0 1px 12px rgba(0,0,0,.8)}.kick{margin-bottom:8px;font-size:11px}
+  .perso-ctl{align-items:center;margin-top:12px;padding:10px}
+  .cards{right:4vw;left:4vw;top:auto;bottom:16px;transform:none;width:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .card{padding:10px;gap:8px;transform:translateY(20px)}.card .ic{width:34px;height:34px;border-radius:10px}.card .ico{width:18px;height:18px}
+  .card b{font-size:13px}.card small{display:none}.dots{right:8px}
+  .perso-ctl input{width:100%;max-width:260px}.chip{width:38px;height:38px}
+  nav{top:8px;padding:7px 8px 7px 16px}section.blk{padding:70px 0}.final{padding:90px 0 110px}.sh{margin-bottom:30px}.calc .pn,.res{padding:20px}.of{padding:22px}.mat{margin:-10px 0 30px}.mat span{text-align:center}
+  .chart{height:140px}.op button{padding:10px 2px;font-size:11px}.op button b{font-size:13px}
+  .l3 div{padding:5px 9px}.l3 b{font-size:11px}.l3 small{display:none}
+}
+section.blk{padding:110px 0;position:relative}
+.wrap{width:min(1100px,92vw);margin:0 auto}
+.sh{text-align:center;margin-bottom:46px}
+.sh h2{font-size:clamp(30px,5vw,60px);font-weight:900;letter-spacing:-.045em;line-height:1.02}
+.sh p{color:var(--t2);font-size:clamp(15px,1.5vw,19px);margin-top:14px}
+.rv{opacity:0;transform:translateY(40px) scale(.98);transition:all .9s cubic-bezier(.2,.8,.2,1)}.rv.vis{opacity:1;transform:none}
+.vid{padding:10px;max-width:960px;margin:0 auto}
+.vid .fr{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.step{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--y);margin:0 0 12px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.mode{padding:22px;display:flex;gap:16px;align-items:center;cursor:pointer;text-align:left;color:#fff;font:inherit;transition:all .3s}
+.mode .ic{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--gb);flex-shrink:0}
+.mode .ico{width:28px;height:28px;stroke:#fff;filter:none}
+.mode b{display:block;font-size:18px;letter-spacing:-.02em}.mode small{color:var(--t2);font-size:13px}
+.mode.on{border-color:var(--y);background:rgba(255,212,0,.1);box-shadow:0 0 0 1px var(--y),0 12px 50px rgba(255,212,0,.18)}
+.mode.on .ic{border-color:var(--y);background:rgba(255,212,0,.12)}.mode.on .ico{stroke:var(--y);filter:drop-shadow(0 0 6px rgba(255,212,0,.85))}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.calc .pn{padding:26px}
+.fd{margin-bottom:18px}
+.fd label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:9px}
+.fd output{color:var(--y);font-weight:800}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:9px;background:rgba(255,255,255,.14);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:0}
+.op{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.op button{background:rgba(255,255,255,.06);border:1px solid var(--gb);color:var(--t2);font:inherit;font-size:12px;font-weight:600;padding:10px 4px;border-radius:14px;cursor:pointer}
+.op button b{display:block;color:#fff;font-size:14px}
+.op button.on{background:var(--y);color:#000;border-color:var(--y)}.op button.on b{color:#000}
+.res{padding:26px;display:flex;flex-direction:column;gap:16px;background:linear-gradient(160deg,rgba(255,212,0,.16),rgba(255,255,255,.04))}
+.res .l{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);font-weight:700}
+.res .m{font-size:clamp(52px,8vw,92px);font-weight:900;letter-spacing:-.05em;line-height:.95}
+.res .m small{font-size:22px;letter-spacing:0;font-weight:700;color:var(--t2)}
+.chart{position:relative;height:170px;display:flex;align-items:flex-end;gap:3px;padding-top:8px}
+.chart u{flex:1;border-radius:3px 3px 0 0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.3) 0 4px,rgba(255,255,255,.14) 4px 6px);transition:height .5s cubic-bezier(.2,.8,.2,1),background .3s;min-height:3px}
+.chart u.g{background:repeating-linear-gradient(0deg,#FFD400 0 4px,#b89400 4px 6px);box-shadow:0 0 14px rgba(255,212,0,.5)}
+.chart .ln{position:absolute;left:0;right:0;bottom:42%;border-top:1.5px dashed rgba(255,255,255,.6)}
+.chart .ln span{position:absolute;left:0;top:-20px;font-size:11px;font-weight:600;color:rgba(255,255,255,.8)}
+.ax{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-top:-8px}
+.msg{font-size:15px;font-weight:600}.msg b{color:var(--y)}
+.kp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kp div{padding:12px 14px;border-radius:16px;background:rgba(0,0,0,.25)}
+.kp b{display:block;font-size:19px;font-weight:800}.kp span{font-size:12px;color:var(--t2)}
+.nt{font-size:11px;color:rgba(255,255,255,.45)}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:15px 24px;border-radius:99px;background:#fff;color:#000;transition:transform .2s}
+.btn:hover{transform:scale(1.03)}.btn.y{background:var(--y)}
+@media(max-width:820px){.calc,.modes{grid-template-columns:1fr}.mode{padding:16px}}
+.mat{display:flex;justify-content:center;margin:-22px 0 34px}
+.mat span{padding:10px 18px;border-radius:99px;font-size:14px;border:1px solid rgba(255,212,0,.4);background:rgba(255,212,0,.08)}.mat b{color:var(--y)}
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.of{padding:26px;display:flex;flex-direction:column;position:relative}
+.of.rec{border-color:rgba(255,212,0,.6);box-shadow:0 0 0 1px rgba(255,212,0,.35),0 20px 60px rgba(255,212,0,.12)}
+.of .tg{position:absolute;top:-12px;left:26px;background:var(--y);color:#000;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:99px}
+.of h3{font-size:22px;letter-spacing:-.02em}.of .sub{font-size:13px;color:var(--t2);margin-top:2px}
+.of .fr{font-size:12px;color:var(--t2);margin-top:14px;height:16px}
+.of .pr{font-size:38px;font-weight:900;letter-spacing:-.04em;line-height:1.1}
+.of .pr small{font-size:15px;color:var(--y);font-weight:700;letter-spacing:0}
+.of .ttc{font-size:13px;color:var(--t2);margin-bottom:16px}
+.of h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin:14px 0 10px}
+.of ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.of li{font-size:14px;color:rgba(255,255,255,.92);padding-left:24px;position:relative;line-height:1.3}
+.of li::before{content:"";position:absolute;left:0;top:4px;width:11px;height:11px;border-radius:50%;background:var(--y);box-shadow:0 0 12px rgba(255,212,0,.7)}
+.of li.off{color:rgba(255,255,255,.3)}.of li.off::before{background:rgba(255,255,255,.14);box-shadow:none}
+.of li em{font-style:normal;display:block;font-size:12px;color:var(--y);opacity:.9}
+.of li.off em{color:rgba(255,255,255,.6)}
+.of .btn{margin-top:22px}.of .sp{flex:1}
+@media(max-width:900px){.offers{grid-template-columns:1fr}}
+.final{text-align:center;padding:130px 0 150px}
+.final h2{font-size:clamp(34px,6vw,76px);font-weight:900;letter-spacing:-.05em;line-height:1}
+.final p{color:var(--t2);margin:18px auto 30px;max-width:520px;font-size:17px}
+footer{text-align:center;font-size:12px;color:rgba(255,255,255,.4);padding:30px 0 40px}
+.waf{transition:opacity .4s;position:fixed;right:18px;bottom:18px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.waf .ico{stroke:#fff;filter:none;width:28px;height:28px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.6 2.7-6 6-6s6 2.4 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12.5V4h8.5L21 13.5 13.5 21z"/><circle cx="7.5" cy="8.5" r="1.4"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.9l7.6-3.8M8.2 13.1l7.6 3.8"/></symbol>
+<symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="7" rx="7" ry="3"/><path d="M5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13.2l.9 1.8 2 .3-1.4 1.4.3 2-1.8-.9-1.8.9.3-2-1.4-1.4 2-.3z"/></symbol>
+<symbol id="i-store" viewBox="0 0 24 24"><path d="M4 11v9h16v-9M3 9l2-5h14l2 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM10 20v-5h4v5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 19z"/></symbol>
+</defs></svg>
+
+<nav class="glass">
+  <div class="logo">Funy<b>Borne</b></div>
+  <div class="lk"><a href="#story">La borne</a><a href="#video">Vidéo</a><a href="#calcul">Rentabilité</a><a href="#offres">Offres</a></div>
+  <a class="pill" href="#offres">Voir les offres</a>
+</nav>
+
+<div id="story">
+  <div class="stage" id="stage">
+    <canvas id="gl"></canvas>
+    <div class="scrim"></div>
+    <div class="flashfx" id="fx"></div>
+    <div class="chap on"><span class="kick">FunyBorne BOX</span><h1>Votre marque.<br><span class="grad">Dans toutes les mains.</span></h1><p>Le photobooth clé en main, prêt dès la livraison.</p></div>
+    <div class="chap"><span class="kick">Mariages · Soirées</span><h2>Elle attire<br><span class="grad">du monde.</span></h2><p>Dans une salle des fêtes, tout le monde finit devant.</p></div>
+    <div class="chap"><span class="kick">Terrasses · Événements</span><h2>4 leviers.<br><span class="grad">Une seule borne.</span></h2></div>
+    <div class="chap"><span class="kick">Malls · Boutiques · Restaurants</span><h2>Elle travaille<br><span class="grad">pour vous.</span></h2><p>Installée chez vous, elle vend des photos et diffuse votre marque, tous les jours.</p></div>
+    <div class="chap"><span class="kick">Vue intérieure</span><h2>Tout est<br><span class="grad">intégré.</span></h2><p>Un seul meuble, rien à câbler sur place.</p></div>
+    <div class="chap"><span class="kick">100 % personnalisable</span><h2>Toute la borne.<br><span class="grad">Pas que la façade.</span></h2><p>Couleurs, logo, écran, photos : tout est à votre image.</p>
+      <div class="perso-ctl glass">
+        <div class="chips">
+          <div class="chip" data-s="#F3F3F1" data-i="#111111" style="background:#F3F3F1"></div>
+          <div class="chip" data-s="#111111" data-i="#FFD400" style="background:#111"></div>
+          <div class="chip" data-s="#E9B8C9" data-i="#3a1a28" style="background:#E9B8C9"></div>
+          <div class="chip" data-s="#C8102E" data-i="#ffffff" style="background:#C8102E"></div>
+          <div class="chip" data-s="#1F4E79" data-i="#ffffff" style="background:#1F4E79"></div>
+        </div>
+        <input id="brandIn" maxlength="16" placeholder="Tapez votre marque">
+      </div>
+    </div>
+    <div class="cards" id="cards">
+      <div class="card glass"><div class="ic"><svg class="ico"><use href="#i-users"/></svg></div><div><b>Du trafic</b><small>Les gens s'arrêtent et restent.</small></div></div>
+      <div class="card glass"><div class="ic"><svg class="ico"><use href="#i-tag"/></svg></div><div><b>Votre logo</b><small>Sur chaque photo emportée.</small></div></div>
+      <div class="card glass"><div class="ic"><svg class="ico"><use href="#i-share"/></svg></div><div><b>Partagé en ligne</b><small>Stories, WhatsApp, QR code.</small></div></div>
+      <div class="card glass"><div class="ic"><svg class="ico"><use href="#i-coins"/></svg></div><div><b>Des ventes</b><small>Location ou photos vendues.</small></div></div>
+    </div>
+    <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="scrollhint" id="hint"><span></span>Faites défiler</div>
+  </div>
+</div>
+
+<section class="blk" id="video"><div class="wrap">
+  <div class="sh rv"><h2>Voyez-la <span class="grad">en action.</span></h2></div>
+  <div class="vid glass rv"><div class="fr"><iframe src="https://www.youtube-nocookie.com/embed/NaQUBiLNuIM?rel=0&modestbranding=1&playsinline=1" title="FunyBorne BOX" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+</div></section>
+
+<section class="blk" id="calcul"><div class="wrap">
+  <div class="sh rv"><h2>Remboursée en <span class="grad">combien de temps ?</span></h2><p>Choisissez votre usage, mettez vos chiffres.</p></div>
+  <div class="step rv">1 · Comment allez-vous l'utiliser ?</div>
+  <div class="modes rv">
+    <button class="mode glass on" data-m="loc"><div class="ic"><svg class="ico"><use href="#i-cal"/></svg></div><div><b>Je la loue</b><small>Mariages, soirées, événements d'entreprise</small></div></button>
+    <button class="mode glass" data-m="eta"><div class="ic"><svg class="ico"><use href="#i-store"/></svg></div><div><b>Je l'installe chez moi</b><small>Restaurant, boutique, mall, salle</small></div></button>
+  </div>
+  <div class="calc rv">
+    <div class="pn glass">
+      <div class="step">2 · Vos chiffres</div>
+      <div id="fLoc">
+        <div class="fd"><label>Soirées par mois <output id="oN"></output></label><input type="range" id="n" min="1" max="20" value="4"></div>
+        <div class="fd"><label>Prix d'une soirée <output id="oP"></output></label><input type="range" id="p" min="2000" max="8000" step="100" value="4500"></div>
+        <div class="fd"><label>Tirages par soirée <output id="oT"></output></label><input type="range" id="t" min="0" max="800" step="10" value="300"></div>
+        <div class="fd"><label>Frais par soirée <output id="oF"></output></label><input type="range" id="f" min="0" max="2000" step="50" value="600"></div>
+      </div>
+      <div id="fEta" style="display:none">
+        <div class="fd"><label>Photos vendues par soir <output id="oV"></output></label><input type="range" id="v" min="1" max="80" value="20"></div>
+        <div class="fd"><label>Prix d'une vente <output id="oPV"></output></label><input type="range" id="pv" min="20" max="100" step="5" value="40"></div>
+        <div class="fd"><label>Soirs d'ouverture par mois <output id="oS"></output></label><input type="range" id="s" min="4" max="31" value="25"></div>
+        <div class="fd"><label>Hôte par soir <output id="oH"></output></label><input type="range" id="h" min="0" max="400" step="10" value="0"></div>
+      </div>
+      <div class="step" style="margin-top:22px">3 · Votre offre (prix HT)</div>
+      <div class="op" id="op"></div>
+    </div>
+    <div class="res glass">
+      <div><div class="l">Borne remboursée en</div><div class="m" id="rM">—</div></div>
+      <div class="chart" id="chart"><div class="ln"><span>Prix de la borne</span></div></div>
+      <div class="ax"><span>Mois 1</span><span>Mois 12</span><span>Mois 24</span></div>
+      <div class="msg" id="rMsg"></div>
+      <div class="kp">
+        <div><b id="rN">—</b><span>Bénéfice / mois</span></div>
+        <div><b id="rY">—</b><span>Gagné sur 2 ans, borne payée</span></div>
+      </div>
+      <a class="btn y" id="rWa" target="_blank">Parler de mon projet</a>
+      <div class="nt">Simulation indicative basée sur vos chiffres, pas une promesse de revenus.</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="blk" id="offres"><div class="wrap">
+  <div class="sh rv"><h2>Trois offres. <span class="grad">Tout est détaillé.</span></h2><p>Les points allumés sont inclus dans l'offre.</p></div>
+  <div class="mat rv"><span>Structure <b>métal</b> ou <b>bois</b> : au choix, au même prix.</span></div>
+  <div class="offers" id="offers"></div>
+</div></section>
+
+<section class="final"><div class="wrap rv">
+  <h2>Une BOX est prête.<br><span class="grad">Livrable sous quelques jours.</span></h2>
+  <p>Au lieu de 45 jours de fabrication. Parlons de votre projet.</p>
+  <a class="btn y" id="finWa" target="_blank">Écrire à Antoine sur WhatsApp</a>
+</div></section>
+<footer>FunyBorne · Rabat, Maroc · 06 69 51 82 26 · contact@funyborne.com</footer>
+<a class="waf" id="waf" target="_blank" aria-label="WhatsApp"><svg class="ico"><use href="#i-chat"/></svg></a>
+
+<script>
+const $=id=>document.getElementById(id);
+const WA="212669518226",wa=m=>"https://wa.me/"+WA+"?text="+encodeURIComponent(m);
+const fmt=n=>Math.round(n).toLocaleString('fr-FR').replace(/[  ]/g,' ');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.12});
+$('finWa').href=wa("Bonjour Antoine, je suis intéressé(e) par la BOX FunyBorne.");
+$('waf').href=wa("Bonjour, j'ai une question sur la BOX FunyBorne.");
+
+const OF=[{n:'Essentielle',s:'La borne, sans imprimante',ttc:49000,fr:'À partir de'},{n:'Business',s:'Prête à imprimer et à vendre',ttc:66000,rec:1},{n:'Premium',s:'Entièrement à votre marque',ttc:79000}];
+const ROWS=[['La borne',[
+ ['Structure métal ou bois',1,1,1],['Appareil photo Canon EOS 2000D',1,1,1],['Écran tactile',1,1,1],['Mini PC intégré',1,1,['Version améliorée, plus performante']],['Logiciel photobooth installé',['Version gratuite pour démarrer, licence à votre charge'],['Version gratuite pour démarrer, licence à votre charge'],['Version gratuite pour démarrer, licence à votre charge']],['Éclairage LED continu',1,1,1],
+ ['Imprimante pro Citizen CZ-01',['Non incluse : la borne est compatible avec toute imprimante, ajoutez la vôtre',0],1,1],['Carton de tirages photo',0,1,1],
+ ['Couleur de la borne au choix',['Livrée en blanc',0],1,1],['Personnalisation complète : logos et branding',0,0,1]]],
+ ['Le service',[
+ ['Livraison, installation, prise en main',1,1,1],['Garantie 1 an',1,1,1],['SAV WhatsApp sous 24h',1,['Prioritaire'],['Prioritaire']],
+ ['Formation équipe 3h + kit de lancement',0,1,1],['Suivi après livraison',0,['1 mois'],['3 mois de suivi stratégique']],['3 interventions sur place offertes',0,0,1]]]];
+$('offers').innerHTML=OF.map((o,k)=>'<div class="of glass rv'+(o.rec?' rec':'')+'">'+(o.rec?'<div class="tg">Le plus choisi</div>':'')+'<h3>'+o.n+'</h3><div class="sub">'+o.s+'</div><div class="fr">'+(o.fr||'')+'</div><div class="pr">'+fmt(o.ttc/1.2)+' <small>DH HT</small></div><div class="ttc">soit '+fmt(o.ttc)+' DH TTC</div>'+
+ ROWS.map(g=>'<h4>'+g[0]+'</h4><ul>'+g[1].map(r=>{const v=r[k+1],on=v===1||(Array.isArray(v)&&v[1]!==0);return '<li class="'+(on?'':'off')+'">'+r[0]+(Array.isArray(v)?'<em>'+v[0]+'</em>':'')+'</li>';}).join('')+'</ul>').join('')+
+ '<div class="sp"></div><a class="btn'+(o.rec?' y':'')+'" target="_blank" href="'+wa("Bonjour Antoine, je suis intéressé(e) par l'offre "+o.n+".")+'">Choisir '+o.n+'</a></div>').join('');
+document.querySelectorAll('.rv').forEach(r=>io.observe(r));
+
+let mode='loc',price=Math.round(66000/1.2),off='Business';const COST=1.4,ch=$('chart');
+$('op').innerHTML=OF.map(o=>'<button data-o="'+Math.round(o.ttc/1.2)+'" data-n="'+o.n+'"'+(o.rec?' class="on"':'')+'>'+o.n+'<b>'+fmt(o.ttc/1.2)+'</b></button>').join('');
+const bars=[];for(let i=0;i<24;i++){const u=document.createElement('u');ch.appendChild(u);bars.push(u);}
+function calc(){
+  let net;
+  if(mode==='loc'){const n=+$('n').value,p=+$('p').value,t=+$('t').value,f=+$('f').value;
+    $('oN').textContent=n;$('oP').textContent=fmt(p)+' DH';$('oT').textContent=t;$('oF').textContent=fmt(f)+' DH';net=n*(p-t*COST-f);}
+  else{const v=+$('v').value,pv=+$('pv').value,s=+$('s').value,h=+$('h').value;
+    $('oV').textContent=v;$('oPV').textContent=pv+' DH';$('oS').textContent=s;$('oH').textContent=fmt(h)+' DH';net=s*(v*(pv-COST)-h);}
+  $('rN').textContent=fmt(net)+' DH';
+  bars.forEach((u,i)=>{const cum=Math.max(0,net)*(i+1);u.style.height=Math.min(100,cum/price*42)+'%';u.classList.toggle('g',cum>=price);});
+  if(net<=0){$('rM').innerHTML='—';$('rY').textContent='—';$('rMsg').innerHTML='Ajustez vos chiffres : les frais dépassent les recettes.';}
+  else{const m=price/net,mi=Math.ceil(m);$('rM').innerHTML=(m<1?'&lt;1':m<10?m.toFixed(1).replace('.',','):Math.round(m))+'<small> mois</small>';
+    $('rY').textContent=fmt(net*24-price)+' DH';
+    $('rMsg').innerHTML=mi<=24?'Au <b>mois '+mi+'</b>, la borne est remboursée. Ensuite, tout est du bénéfice.':'Plus de 24 mois : augmentez vos soirées ou vos ventes.';}
+  $('rWa').href=wa("Bonjour Antoine, j'ai fait la simulation ("+(mode==='loc'?'location':'établissement')+", offre "+off+") : environ "+fmt(net)+" DH de bénéfice par mois. On en parle ?");
+}
+document.querySelectorAll('input[type=range]').forEach(i=>i.addEventListener('input',calc));
+document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.mode').forEach(x=>x.classList.remove('on'));b.classList.add('on');mode=b.dataset.m;$('fLoc').style.display=mode==='loc'?'':'none';$('fEta').style.display=mode==='eta'?'':'none';calc();}));
+document.querySelectorAll('.op button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.op button').forEach(x=>x.classList.remove('on'));b.classList.add('on');price=+b.dataset.o;off=b.dataset.n;calc();}));
+calc();
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
